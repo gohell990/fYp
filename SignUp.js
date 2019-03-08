@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button, Image} from 'react-native';
 import firebase from 'react-native-firebase';
 export default class SignUp extends React.Component {
   state = { email: '', password: '', errorMessage: null }
@@ -10,6 +10,14 @@ handleSignUp = () => {
     .catch(error => this.setState({errorMessage: error.message}))
   console.log('handleSignUp')
 }
+
+constructor(props) {
+  super(props);
+  state = {
+    fullName: '',
+  }
+}
+
 render() {
     return (
       <View style={styles.container}>
@@ -18,6 +26,14 @@ render() {
           <Text style={{ color: 'red' }}>
             {this.state.errorMessage}
           </Text>}
+        <TextInput style={styles.textInput}
+            autoCapitalize="none"
+            placeholder="Full name"
+            keyboardType="email-address"
+            underlineColorAndroid='transparent'
+            onChangeText={(fullName) => this.setState({fullName})}
+            value={this.state.fullName}
+        />s
         <TextInput
           placeholder="Email"
           autoCapitalize="none"
