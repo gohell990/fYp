@@ -1,37 +1,34 @@
-import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import {
+  createStackNavigator,
+} from 'react-navigation';
 
-import Header from './app/component/Header';
-import Banner from './app/component/Banner';
-import ContentContainer from './app/component/ContentContainer';
+import Loading from './Loading';
+import SignUp from './SignUp';
+import Login from './Login';
+import Main from './Main';
 
-import firebase from 'react-native-firebase';
-
-
-export default class App extends React.Component {
-
-  render() {
-    return (
-      <ScrollView
-        contentContainerStyle={styles.container}>
-        <Header />
-        <Banner />
-        <ContentContainer />
-      </ScrollView>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-
-    backgroundColor: '#fff',
+export default createStackNavigator({
+  Main:{
+    screen: Main
   },
-
-  test:{
-    width:'100%',
-    justifyContent: 'space-around',
-    alignItems: 'center',
+  Loading:{
+    screen: Loading
+  },
+  Login:{
+    screen: Login
+  },
+  SignUp:{
+    screen: SignUp
   }
+}, {
+  initialRouteName: 'Loading',
+  navigationOptions:{
+    headerStyle:{
+      backgroundColor: '#a80000',
+    },
+    headerTintColor:'#fff',
+    headerTitleStyle:{
+      fontWeight: 'bold',
+    },
+  },
 });
