@@ -1,25 +1,34 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import { Alert, StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import firebase from 'react-native-firebase';
+
 export default class Login extends React.Component {
+
+  componentDidMount(){
+    firebase.auth().onAuthStateChanged(user => {
+      this.props.navigation.navigate(user ? 'Main' : 'Login')
+    })
+  }
+
   state = { email: '', password: '', errorMessage: null }
   handleLogin = () => {
     const { email, password } = this.state
-    firebase
-    .auth()
-    .signInWithEmailAndPassword(email,password)
-    .then(() => this.props.navigation.navigate('Main'))
-    .catch(error => this.setState({errorMessage:error.message}))
-    console.log('handleLogin')
+    if (this.state.email == '' && this.state.password == ''){
+      Alert.alert("Cannot Be Null");
+    }else {
+      firebase
+      .auth()
+      .signInWithEmailAndPassword(email,password)
+      .then(() => this.props.navigation.navigate('Main'))
+      .catch(error => this.setState({errorMessage:error.message}))
+      console.log('handleLogin')}
   }
+
   render() {
     return (
       <View style={styles.container}>
         <Text>Login</Text>
-        {this.state.errorMessage &&
-          <Text style={{ color: 'red' }}>
-            {this.state.errorMessage}
-          </Text>}
+
         <TextInput
           style={styles.textInput}
           autoCapitalize="none"
@@ -35,15 +44,22 @@ export default class Login extends React.Component {
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
-        <Button title="Login" onPress={this.handleLogin} />
+        <Button title="Login" onPress= {()=> this.handleLogin()}/>
+
         <Button
           title="Don't have an account? Sign Up"
           onPress={() => this.props.navigation.navigate('SignUp')}
         />
+
+        {this.state.errorMessage &&
+          <Text style={{ color: 'red' }}>
+            {this.state.errorMessage}
+          </Text>}
       </View>
     )
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
