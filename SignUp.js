@@ -18,6 +18,10 @@ constructor(props) {
   }
 }
 
+onClickListener = (viewId) => {
+  Alert.alert("Alert", "Button pressed "+viewId);
+}
+
 render() {
     return (
       <View style={styles.container}>
@@ -33,7 +37,7 @@ render() {
             underlineColorAndroid='transparent'
             onChangeText={(fullName) => this.setState({fullName})}
             value={this.state.fullName}
-        />s
+        />
         <TextInput
           placeholder="Email"
           autoCapitalize="none"

@@ -7,13 +7,12 @@ import Login from './Login';
 import Main from './Main';
 
 export default createStackNavigator({
-  Main:{
-    screen: Main
-  },
-
+  Main:{ screen: Main },
+  
   Login:{
     screen: Login
   },
+
   SignUp:{
     screen: SignUp
   }
