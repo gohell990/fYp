@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-
-import { Icon, Button, Container, Header, Content, Left, Right} from 'native-base';
+import {Button} from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Container, Header, Content, Left, Right} from 'native-base';
 
 export default class MyAccountScreen extends React.Component{
 
@@ -10,6 +11,29 @@ export default class MyAccountScreen extends React.Component{
       <View style={styles.container}>
 
         <Text> MyAccountScreen </Text>
+        <View style={styles.buttonContainer}>
+          <View style={styles.button}>
+            <Button title="Logout"
+            icon = {
+              <Icon name="shopping-cart" size={20} style={styles.icon}/>
+            }/>
+          </View>
+          <View style={styles.button}>
+            <Button
+              title="Home"
+              onPress={()=>showSettings()}
+              icon = {
+                <Icon name="shopping-cart" size={20} style={styles.icon}/>
+              }
+            />
+          </View>
+          <View style={styles.button}>
+            <Button title="My Account" onPress={()=>navigation.navigate('MyAccount')}
+              icon = {
+                <Icon name="shopping-cart" size={20} style={styles.icon}/>
+              }/>
+          </View>
+        </View>
       </View>
     );
   }
@@ -21,4 +45,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: 0,
+    alignItems: 'center',
+  },
+  button: {
+
+    justifyContent: 'flex-end',
+    flex: 1,
+  },
+  icon: {
+    marginRight: 10,
+  }
 })

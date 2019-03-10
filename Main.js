@@ -1,10 +1,11 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Image, Text, View, Button, DrawerLayoutAndroid } from 'react-native';
+import { ScrollView, StyleSheet, Image, Text, View } from 'react-native';
 import firebase from 'react-native-firebase';
-import {createDrawerNavigator} from 'react-navigation';
+import {Button} from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import MyAccountScreen from './app/src/MyAccountScreen';
-import DrawerScreen from './app/src/DrawerScreen';
+
 import SettingsScreen from './app/src/SettingsScreen';
 
 export default class Main extends React.Component {
@@ -34,10 +35,27 @@ export default class Main extends React.Component {
               Hi {currentUser && currentUser.email}!
             </Text>
             <View style={styles.buttonContainer}>
-              <Button style={styles.button} title="Logout" onPress={this.handleLogout} />
-
-              <Button style={styles.button} title="My Account" onPress={()=>this.props.navigation.navigate('Settings')}/>
-              <Button style={styles.button} title="Home" onPress={()=>this.props.navigation.navigate('MyAccount')}/>
+              <View style={styles.button}>
+                <Button title="Logout" onPress={this.handleLogout}
+                icon = {
+                  <Icon name="shopping-cart" size={20} style={styles.icon}/>
+                }/>
+              </View>
+              <View style={styles.button}>
+                <Button
+                  title="Settings"
+                  onPress={()=>this.props.navigation.navigate('Settings')}
+                  icon = {
+                    <Icon name="shopping-cart" size={20} style={styles.icon}/>
+                  }
+                />
+              </View>
+              <View style={styles.button}>
+                <Button title="My Account" onPress={()=>this.props.navigation.navigate('MyAccount')}
+                  icon = {
+                    <Icon name="shopping-cart" size={20} style={styles.icon}/>
+                  }/>
+              </View>
             </View>
           </ScrollView>
 
@@ -55,15 +73,17 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     position: 'absolute',
     bottom: 0,
     alignItems: 'center',
   },
   button: {
-    width: 70,
+
     justifyContent: 'flex-end',
     flex: 1,
-
+  },
+  icon: {
+    marginRight: 10,
   }
 })
