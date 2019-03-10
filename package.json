@@ -22,7 +22,7 @@
     "preset": "react-native"
   },
   "dependencies": {
-    "native-base": "^2.12.0",
+    "native-base": "^2.12.1",
     "react": "16.6.3",
     "react-native": "0.58.0-rc.2",
     "react-native-firebase": "^5.2.0",

@@ -1,20 +1,13 @@
 import React from 'react';
-import { StyleSheet, Platform, Image, Text, View, Button } from 'react-native';
-import {DrawerNavigator,} from 'react-navigation';
+import { ScrollView, StyleSheet, Image, Text, View, Button, DrawerLayoutAndroid } from 'react-native';
 import firebase from 'react-native-firebase';
+import {createDrawerNavigator} from 'react-navigation';
 
-class Main extends React.Component {
+import MyAccountScreen from './app/src/MyAccountScreen';
+import DrawerScreen from './app/src/DrawerScreen';
+import SettingsScreen from './app/src/SettingsScreen';
 
-  static navigationOptions = {
-    drawerLabel: 'Home',
-    drawerIcon: ({ tintColor }) => (
-      <Image
-        source={require('./app/image/cart.png')}
-        style={[styles.icon, {tintColor: tintColor}]}
-      />
-    ),
-  };
-
+export default class Main extends React.Component {
   handleLogout = () => {
     const { email, password } = this.state
     firebase
@@ -24,54 +17,34 @@ class Main extends React.Component {
     .catch(error => this.setState({errorMessage:error.message}))
     console.log('handleLogout')
   }
+
   componentDidMount() {
     const {currentUser} = firebase.auth()
     this.setState({currentUser})
   }
+
   state = { currentUser: null }
 
-render() {
-    const { currentUser } = this.state
-return (
-      <View style={styles.container}>
-        <Text>
-          Hi {currentUser && currentUser.email}!
-        </Text>
-        <Button onPress={()=> this.props.navigation.navigate('DrawerOpen')}
-          title= "MyAccount"/>
+  render() {
+      const { currentUser } = this.state
+      return (
 
-        <Button title="Logout" onPress={this.handleLogout} />
-      </View>
-    )
-  }
+          <ScrollView contentContainerStyle={styles.container}>
+            <Text>
+              Hi {currentUser && currentUser.email}!
+            </Text>
+            <View style={styles.buttonContainer}>
+              <Button style={styles.button} title="Logout" onPress={this.handleLogout} />
+
+              <Button style={styles.button} title="My Account" onPress={()=>this.props.navigation.navigate('Settings')}/>
+              <Button style={styles.button} title="Home" onPress={()=>this.props.navigation.navigate('MyAccount')}/>
+            </View>
+          </ScrollView>
+
+      );
+    }
 }
 
-class MyAccountScreen extends React.Component{
-  static navigationOptions= {
-    drawerLabel: 'MyAccount',
-    drawerIcon: ({tintColor}) => (
-      <Image
-        source={require('./app/image/image2.jpg')}
-
-      />
-    ),
-  };
-
-  render(){
-    return(
-      <View style={styles.container}>
-        <Button
-          onPress={()=> this.props.navigation.goBack()}
-          title="Go Main Page"
-        />
-        <Button
-          onPress={()=> this.props.navigation.navigate('DrawerOpen')}
-          title="HomePage"
-        />
-      </View>
-    );
-  }
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -79,19 +52,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  icon: {
-    width: 24,
-    height: 24,
+  buttonContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    position: 'absolute',
+    bottom: 0,
+    alignItems: 'center',
   },
+  button: {
+    width: 70,
+    justifyContent: 'flex-end',
+    flex: 1,
+
+  }
 })
-
-export default DrawerNavigator({
-  Main: { screen: Main},
-  MyAccount: { screen: MyAccountScreen },
-
-}, {
-      drawerPosition: 'right',
-      initialRouteName: 'Main',
-      drawerBackgroundColor: 'orange',
-      drawerWidth: 200,
-});

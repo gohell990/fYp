@@ -5,16 +5,26 @@ import {
 import SignUp from './SignUp';
 import Login from './Login';
 import Main from './Main';
+import SettingsScreen from './app/src/SettingsScreen';
+import MyAccountScreen from './app/src/MyAccountScreen';
 
 export default createStackNavigator({
   Main:{ screen: Main },
-  
+
   Login:{
     screen: Login
   },
 
   SignUp:{
     screen: SignUp
+  },
+
+  Settings: {
+    screen: SettingsScreen
+  },
+
+  MyAccount: {
+    screen: MyAccountScreen
   }
 }, {
   initialRouteName: 'Login',
@@ -27,4 +37,5 @@ export default createStackNavigator({
       fontWeight: 'bold',
     },
   },
+  headerMode: 'none',
 });
