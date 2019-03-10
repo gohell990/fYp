@@ -7,6 +7,7 @@ import Login from './Login';
 import Main from './Main';
 import SettingsScreen from './app/src/SettingsScreen';
 import MyAccountScreen from './app/src/MyAccountScreen';
+import UploadItem from './app/src/UploadItem.js';
 
 export default createStackNavigator({
   Main:{ screen: Main },
@@ -25,6 +26,9 @@ export default createStackNavigator({
 
   MyAccount: {
     screen: MyAccountScreen
+  },
+  UploadItem: {
+    screen: UploadItem
   }
 }, {
   initialRouteName: 'Login',

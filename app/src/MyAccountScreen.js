@@ -15,22 +15,22 @@ export default class MyAccountScreen extends React.Component{
           <View style={styles.button}>
             <Button title="Logout"
             icon = {
-              <Icon name="shopping-cart" size={20} style={styles.icon}/>
+              <Icon name="sign-out" size={20} style={styles.icon}/>
             }/>
           </View>
           <View style={styles.button}>
             <Button
               title="Home"
-              onPress={()=>showSettings()}
+              onPress={()=>this.props.navigation.navigate('Main')}
               icon = {
                 <Icon name="shopping-cart" size={20} style={styles.icon}/>
               }
             />
           </View>
           <View style={styles.button}>
-            <Button title="My Account" onPress={()=>navigation.navigate('MyAccount')}
+            <Button title="UploadItem" onPress={()=>this.props.navigation.navigate('UploadItem')}
               icon = {
-                <Icon name="shopping-cart" size={20} style={styles.icon}/>
+                <Icon name="user-circle" size={20} style={styles.icon}/>
               }/>
           </View>
         </View>

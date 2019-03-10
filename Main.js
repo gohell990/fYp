@@ -38,7 +38,7 @@ export default class Main extends React.Component {
               <View style={styles.button}>
                 <Button title="Logout" onPress={this.handleLogout}
                 icon = {
-                  <Icon name="shopping-cart" size={20} style={styles.icon}/>
+                  <Icon name="sign-out" size={20} style={styles.icon}/>
                 }/>
               </View>
               <View style={styles.button}>
@@ -53,7 +53,7 @@ export default class Main extends React.Component {
               <View style={styles.button}>
                 <Button title="My Account" onPress={()=>this.props.navigation.navigate('MyAccount')}
                   icon = {
-                    <Icon name="shopping-cart" size={20} style={styles.icon}/>
+                    <Icon name="user-circle" size={20} style={styles.icon}/>
                   }/>
               </View>
             </View>
