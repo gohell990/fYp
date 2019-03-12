@@ -19,12 +19,18 @@ export default class ItemDetails extends React.Component{
 
   componentDidMount() {
     const { navigation } = this.props;
-    firebase.initializeApp(firebaseConfig)
-    .firestore()
-    .collection("Items")
-    .get()
-    .then(snapshot => snapshot.docs.map(doc => console.log(doc.id)))
-    .catch(error => console.log("Error getting document:", error))
+    const ref = firebase.firestore().collection('Items').doc(JSON.parse(navigation.getParam('itemkey')));
+    ref.get().then((doc) => {
+      if (doc.exists) {
+        this.setState({
+          item: doc.data(),
+          key: doc.id,
+          isLoading: false
+        });
+      } else {
+        console.log("No such document!");
+      }
+    });
   }
 
   deleteBoard(key) {
@@ -32,7 +38,7 @@ export default class ItemDetails extends React.Component{
     this.setState({
       isLoading: true
     });
-    firebase.firestore().collection('items').doc(key).delete().then(() => {
+    firebase.firestore().collection('Items').doc(key).delete().then(() => {
       console.log("Document successfully deleted!");
       this.setState({
         isLoading: false

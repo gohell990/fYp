@@ -28,7 +28,7 @@ export default class EditItem extends React.Component{
       if (doc.exists) {
         const item = doc.data();
         this.setState({
-          key: item.id,
+          key: doc.id,
           name: item.name,
           description: item.description,
           category: item.category,

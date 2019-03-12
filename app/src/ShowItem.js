@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, ActivityIndicator, View, Text } from 'react-native';
+import { TouchableHighlight, StyleSheet, ScrollView, ActivityIndicator, View, Text, FlatList } from 'react-native';
 import { List, ListItem, Button, Icon } from 'react-native-elements';
 import firebase from 'react-native-firebase';
 
@@ -51,22 +51,28 @@ export default class ShowItem extends React.Component{
     else {
     return (
       <ScrollView contentContainerStylestyle={styles.container}>
-        <List>
-          {
-            this.state.items.map((item, i) => (
-              <ListItem
-                key={i}
-                name={item.name}
-                leftIcon={{name: 'book', type: 'font-awesome'}}
+        <FlatList
+          data={this.state.items}
+          showsVerticalScrollIndicator= {true}
+          renderItem={({item}) =>
+              <TouchableHighlight
                 onPress={() => {
                   this.props.navigation.navigate('ItemDetails', {
                     itemkey: `${JSON.stringify(item.key)}`,
                   });
                 }}
-              />
-            ))
+              >
+              <View style={styles.item}>
+                <Text style={styles.itemTitle}>{item.name}</Text>
+                <Text style={styles.itemSubtitle}>{item.key}</Text>
+              </View>
+              </TouchableHighlight>
+
           }
-        </List>
+          keyExtractor={(item) => {item.key.toString()}}
+        />
+
+
       </ScrollView>
     );}
   }
@@ -78,9 +84,22 @@ const styles = StyleSheet.create({
    paddingBottom: 22
   },
   item: {
+    justifyContent: 'center',
+    borderBottomWidth: 3,
+    borderColor: '#ccc',
+    marginBottom:10,
     padding: 10,
     fontSize: 18,
     height: 44,
+  },
+  itemTitle: {
+    fontSize: 22,
+    fontWeight: '500',
+    color: '#000'
+  },
+  itemSubtitle: {
+    fontSize: 18,
+    marginBottom:20
   },
   activity: {
     position: 'absolute',
