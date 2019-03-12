@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { ScrollView, StyleSheet, Image, Text, View } from 'react-native';
 import firebase from 'react-native-firebase';
 import {Button} from 'react-native-elements';

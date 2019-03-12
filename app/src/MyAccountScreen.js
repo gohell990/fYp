@@ -28,11 +28,19 @@ export default class MyAccountScreen extends React.Component{
             />
           </View>
           <View style={styles.button}>
+            <Button title="EditItem"
+              onPress={()=>this.props.navigation.navigate('ShowItem')}
+              icon = {
+                <Icon name="edit" size={20} style={styles.icon}/>
+              }/>
+          </View>
+          <View style={styles.button}>
             <Button title="UploadItem" onPress={()=>this.props.navigation.navigate('UploadItem')}
               icon = {
                 <Icon name="user-circle" size={20} style={styles.icon}/>
               }/>
           </View>
+
         </View>
       </View>
     );
