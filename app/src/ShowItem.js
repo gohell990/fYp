@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { TouchableHighlight, StyleSheet, ScrollView, ActivityIndicator, View, Text, FlatList } from 'react-native';
-import { List, ListItem, Button, Icon } from 'react-native-elements';
+import { ListItem, Button, Icon } from 'react-native-elements';
 import firebase from 'react-native-firebase';
 
 export default class ShowItem extends React.Component{
@@ -23,7 +23,7 @@ export default class ShowItem extends React.Component{
       const { name, description, category, price } = doc.data();
       items.push({
         key: doc.id,
-        doc,
+        index: i,
         name,
         description,
         category,
@@ -40,6 +40,21 @@ export default class ShowItem extends React.Component{
     this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
   }
 
+  renderItem = ({item}) => (
+    <ListItem
+      key={item.index}
+      name={item.name}
+      title={`${item.name} title`}
+      subtitle={`${item.name} subtitle`}
+      leftIcon={{name: 'book', type: 'font-awesome'}}
+      onPress={() => {
+        this.props.navigation.navigate('ItemDetails', {
+          itemkey: `${JSON.stringify(item.key)}`,
+        });
+      }}
+    />
+  )
+
   render() {
     if(this.state.isLoading){
       return(
@@ -49,32 +64,15 @@ export default class ShowItem extends React.Component{
       )
     }
     else {
-    return (
-      <ScrollView contentContainerStylestyle={styles.container}>
-        <FlatList
-          data={this.state.items}
-          showsVerticalScrollIndicator= {true}
-          renderItem={({item}) =>
-              <TouchableHighlight
-                onPress={() => {
-                  this.props.navigation.navigate('ItemDetails', {
-                    itemkey: `${JSON.stringify(item.key)}`,
-                  });
-                }}
-              >
-              <View style={styles.item}>
-                <Text style={styles.itemTitle}>{item.name}</Text>
-                <Text style={styles.itemSubtitle}>{item.key}</Text>
-              </View>
-              </TouchableHighlight>
-
-          }
-          keyExtractor={(item) => {item.key.toString()}}
-        />
-
-
-      </ScrollView>
-    );}
+      return (
+        <ScrollView contentContainerStylestyle={styles.container}>
+          <FlatList
+            data={this.state.items}
+            renderItem={this.renderItem}
+          />
+        </ScrollView>
+      );
+    }
   }
 }
 
